@@ -6,11 +6,11 @@ try {
     const section = document.querySelector('#items')
     for (const product of products) {
         const template = document.querySelector('#item').content.cloneNode(true)
-        template.querySelector('.productLink').href = product._id
+        template.querySelector('.productLink').href = `./product.html?id=${product._id}`
         template.querySelector('.productImg').src = product.imageUrl
         template.querySelector('.productImg').alt = product.altTxt
-        template.querySelector('.productName').innerHTML = product.name
-        template.querySelector('.productDescription').innerHTML = product.description
+        template.querySelector('.productName').innerText = product.name
+        template.querySelector('.productDescription').innerText = product.description
         section.appendChild(template)
     }
 
