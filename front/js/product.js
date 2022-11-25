@@ -1,8 +1,11 @@
+import {getCart, saveCart, fetchJson} from './utils.js'
+
 try {
     const urlParams = new URLSearchParams(window.location.search)
     const id = urlParams.get('id')
-    const response = await fetch(`http://localhost:3000/api/products/${id}`)
-    const product = await response.json()
+    // const response = await fetch(`http://localhost:3000/api/products/${id}`)
+    // const product = await response.json()
+    const product = await fetchJson(`http://localhost:3000/api/products/${id}`)
     console.log(product)
 
     // 1
@@ -34,7 +37,7 @@ try {
     // AddCart
     document.querySelector('#addToCart').addEventListener('click', () => {
 
-        const cart = JSON.parse(localStorage.getItem('cart')) || []
+        const cart = getCart()
         let cartItem = cart.find(cartItem => cartItem.id === product._id && cartItem.color === document.querySelector('#colors').value)
         if (!cartItem) {
             cartItem = {
@@ -46,7 +49,7 @@ try {
             cart.push(cartItem)
         }
         cartItem.quantity += parseInt(document.querySelector('#quantity').value)
-        localStorage.setItem('cart', JSON.stringify(cart))
+        saveCart(cart)
 
         console.log(cartItem)
     })
