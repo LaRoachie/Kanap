@@ -1,7 +1,7 @@
 import { getCart, saveCart, fetchJson } from './utils.js'
 
 try {
-    const cart = getCart()
+    let cart = getCart()
 
     const productPromises = cart.reduce((productIds, cartItem) => {
         if (!productIds.includes(cartItem.id)) {
@@ -24,6 +24,12 @@ try {
         // template.querySelector('.productColor').innerText = color
         template.querySelector('.productPrice').innerText = product.price + " €"
         template.querySelector('.itemQuantity').value = cartItem.quantity
+        template.querySelector('.deleteItem').addEventListener('click', (event) =>{
+            event.target.closest('.cart__item').remove()
+            cart = cart.filter(_cartItem => cartItem !== _cartItem)
+            saveCart(cart)
+            totalProduct(cart, products)
+        })
         section.appendChild(template)
     }
 
