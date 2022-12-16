@@ -3,10 +3,7 @@ import {getCart, saveCart, fetchJson} from './utils.js'
 try {
     const urlParams = new URLSearchParams(window.location.search)
     const id = urlParams.get('id')
-    // const response = await fetch(`http://localhost:3000/api/products/${id}`)
-    // const product = await response.json()
     const product = await fetchJson(`http://localhost:3000/api/products/${id}`)
-    console.log(product)
 
     // 1
     product.colors.forEach(color => {
@@ -50,8 +47,6 @@ try {
         }
         cartItem.quantity += parseInt(document.querySelector('#quantity').value)
         saveCart(cart)
-
-        console.log(cartItem)
     })
 
 } catch (error) {
