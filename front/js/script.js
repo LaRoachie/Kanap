@@ -1,6 +1,8 @@
 import {getCart, saveCart, fetchJson} from './utils.js'
 
 // Appel API et récupération de la réponse
+// const response = await fetch('http://localhost:3000/api/products')
+// const products = await response.json()
 const products = await fetchJson('http://localhost:3000/api/products')
 
 // Boucle pour inserer les données pour chaque produits à l'aide d'un template

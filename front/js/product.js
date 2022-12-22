@@ -25,11 +25,11 @@ try {
     // 2bis
     // product.colors.forEach(addColors)
 
-
+    document.querySelector('#image').src = product.imageUrl
+    document.querySelector('#image').alt = product.altTxt
     document.querySelector('#title').innerText = product.name
     document.querySelector('#price').innerText = product.price
     document.querySelector('#description').innerText = product.description
-
 
     // AddCart
     document.querySelector('#addToCart').addEventListener('click', () => {
@@ -40,7 +40,6 @@ try {
             cartItem = {
                 id: product._id,
                 quantity: 0,
-                // quantity: +document.querySelector('#quantity').value,
                 color: document.querySelector('#colors').value
             }
             cart.push(cartItem)
