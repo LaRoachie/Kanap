@@ -42,6 +42,7 @@ try {
         template.querySelector('.productImg').src = product.imageUrl
         template.querySelector('.productImg').alt = product.altTxt
         template.querySelector('.productName').innerText = product.name
+        template.querySelector('.productColor').innerText = cartItem.color
         template.querySelector('.productPrice').innerText = product.price + " €"
         template.querySelector('.itemQuantity').value = cartItem.quantity
         template.querySelector('.deleteItem').addEventListener('click', (event) =>{
