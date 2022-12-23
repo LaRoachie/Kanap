@@ -1,5 +1,6 @@
 import { getCart, saveCart, fetchJson } from './utils.js'
 
+// RegEx et messages d'erreur
 const inputValues = {
     firstName:{
         regEx : new RegExp('^[a-zA-Z][a-zA-Z-]*[a-zA-Z]$'),
@@ -60,6 +61,7 @@ totalProduct(cart, products)
     alert("une erreur s'est produite")
 }
 
+// Gestion du montant et des quantités
 function totalProduct(cart, products) {
     const quantity = cart.reduce((quantity, cartItem) => quantity + cartItem.quantity, 0)
     document.querySelector('#totalQuantity').innerText = quantity
@@ -71,9 +73,7 @@ function totalProduct(cart, products) {
     document.querySelector('#totalPrice').innerText = price
 }
 
-
-
-// Validation du formulaire
+// Activation/Desactivation du bouton commander
 const form = document.querySelector('#formValidate')
 
 form.addEventListener('input', function(event) {
@@ -82,10 +82,12 @@ form.addEventListener('input', function(event) {
         document.querySelector('#order').removeAttribute('disabled')
     }
     else{
+        //On desactive le bouton submit
         document.querySelector('#order').setAttribute('disabled','')
     }
 })
 
+// Envoi du formulaire
 form.addEventListener('submit', async function(event) {
     event.preventDefault()
     const data = {
@@ -101,6 +103,8 @@ form.addEventListener('submit', async function(event) {
             return products
         },[])
     }
+
+    // Génération d'un id de commande
     const order = await fetchJson('http://localhost:3000/api/products/order', {
         method: 'POST',
         headers: {
@@ -111,6 +115,8 @@ form.addEventListener('submit', async function(event) {
     document.location.href = `./confirmation.html?orderId=${order.orderId}`
 })
 
+
+// Validation du formulaire
 function verifForm(){
     //On boucle sur tout les input du form
     return Object.keys(inputValues).every(input => {

@@ -5,7 +5,7 @@ try {
     const id = urlParams.get('id')
     const product = await fetchJson(`http://localhost:3000/api/products/${id}`)
 
-    // 1
+    // Recupération et affichage des couleurs dns un select
     product.colors.forEach(color => {
         const option = document.createElement('option')
         option.value = color
@@ -13,27 +13,15 @@ try {
         document.querySelector('#colors').appendChild(option)
     })
 
-    // 2
-    // const addColors = color => {
-    //     const option = document.createElement('option')
-    //     option.value = color
-    //     option.innerText = color
-    //     document.querySelector('#colors').appendChild(option)
-    // }
-    // product.colors.forEach (color => addColors(color))
-
-    // 2bis
-    // product.colors.forEach(addColors)
-
+    // Insertion des données dans la page produit
     document.querySelector('#image').src = product.imageUrl
     document.querySelector('#image').alt = product.altTxt
     document.querySelector('#title').innerText = product.name
     document.querySelector('#price').innerText = product.price
     document.querySelector('#description').innerText = product.description
 
-    // AddCart
+    // Ajout au panier
     document.querySelector('#addToCart').addEventListener('click', () => {
-
         const cart = getCart()
         let cartItem = cart.find(cartItem => cartItem.id === product._id && cartItem.color === document.querySelector('#colors').value)
         if (!cartItem) {
@@ -51,14 +39,4 @@ try {
 } catch (error) {
     alert("une erreur s'est produite")
 }
-
-
-// 3
-// function addColors (color) {
-//     const option = document.createElement('option')
-//     option.value = color
-//     option.innerText = color
-//     document.querySelector('#colors').appendChild(option)
-// }
-
 

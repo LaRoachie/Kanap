@@ -2,8 +2,6 @@ import {getCart, saveCart, fetchJson} from './utils.js'
 
 try {
     // Appel API et récupération de la réponse
-    // const response = await fetch('http://localhost:3000/api/products')
-    // const products = await response.json()
     const products = await fetchJson('http://localhost:3000/api/products')
 
     // Boucle pour inserer les données pour chaque produits à l'aide d'un template
@@ -17,8 +15,6 @@ try {
         template.querySelector('.productDescription').innerText = product.description
         template.querySelector('.productLink').href = `./product.html?id=${product._id}`
         productContainer.appendChild(template)
-
-        console.log(product)
     })
 } catch {
     alert('Aucun produit disponible')
