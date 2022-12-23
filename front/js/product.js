@@ -32,8 +32,15 @@ try {
             }
             cart.push(cartItem)
         }
+        // Affichage d'un message d'ajout au panier
+        document.querySelector('.msgAddCart').removeAttribute('hidden')
+
         cartItem.quantity += parseInt(document.querySelector('#quantity').value)
         saveCart(cart)
+        // Délai avant redirection vers la page d'accueil
+        setTimeout (() => {
+            document.location.href = `./index.html`
+        }, 2000)
     })
 
 } catch (error) {
