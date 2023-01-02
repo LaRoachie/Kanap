@@ -1,4 +1,4 @@
-import {getCart, saveCart, fetchJson} from './utils.js'
+import { getCart, saveCart, fetchJson } from './utils.js'
 
 try {
     const urlParams = new URLSearchParams(window.location.search)
@@ -32,15 +32,22 @@ try {
             }
             cart.push(cartItem)
         }
-        // Affichage d'un message d'ajout au panier
-        document.querySelector('.msgAddCart').removeAttribute('hidden')
 
-        cartItem.quantity += parseInt(document.querySelector('#quantity').value)
-        saveCart(cart)
-        // Délai avant redirection vers la page d'accueil
-        setTimeout (() => {
-            document.location.href = `./index.html`
-        }, 2000)
+        if (!cartItem.color || !cartItem.quantity ) {
+            // Affichage d'un message d'erreur
+            document.querySelector('.msgError').removeAttribute('hidden')
+        }
+        else {
+            document.querySelector('.msgError').setAttribute('hidden', '')
+            cartItem.quantity += parseInt(document.querySelector('#quantity').value)
+            saveCart(cart)
+            // Affichage d'un message d'ajout au panier
+            document.querySelector('.msgSuccess').removeAttribute('hidden')
+            // Délai avant redirection vers la page d'accueil
+            setTimeout(() => {
+                document.location.href = `./cart.html`
+            }, 2000)
+        }
     })
 
 } catch (error) {
