@@ -22,32 +22,36 @@ try {
 
     // Ajout au panier
     document.querySelector('#addToCart').addEventListener('click', () => {
-        const cart = getCart()
-        let cartItem = cart.find(cartItem => cartItem.id === product._id && cartItem.color === document.querySelector('#colors').value)
-        if (!cartItem) {
-            cartItem = {
-                id: product._id,
-                quantity: 0,
-                color: document.querySelector('#colors').value
-            }
-            cart.push(cartItem)
-        }
+        const quantity = parseInt(document.querySelector('#quantity').value)
+        const color = document.querySelector('#colors').value
 
-        if (!cartItem.color || !cartItem.quantity ) {
+        if (!color || !quantity) {
             // Affichage d'un message d'erreur
             document.querySelector('.msgError').removeAttribute('hidden')
+            return
+        }
+
+        const cart = getCart()
+        const cartItem = cart.find(cartItem => cartItem.id === product._id && cartItem.color === color)
+        if (cartItem) {
+            cartItem.quantity += quantity
         }
         else {
-            document.querySelector('.msgError').setAttribute('hidden', '')
-            cartItem.quantity += parseInt(document.querySelector('#quantity').value)
-            saveCart(cart)
-            // Affichage d'un message d'ajout au panier
-            document.querySelector('.msgSuccess').removeAttribute('hidden')
-            // Délai avant redirection vers la page d'accueil
-            setTimeout(() => {
-                document.location.href = `./cart.html`
-            }, 2000)
+            cart.push({
+                id: product._id,
+                quantity: quantity,
+                color: color
+            })
         }
+        // On efface le message derreur
+        document.querySelector('.msgError').setAttribute('hidden', '')
+        saveCart(cart)
+        // Affichage d'un message d'ajout au panier
+        document.querySelector('.msgSuccess').removeAttribute('hidden')
+        // Délai avant redirection vers la page panier
+        setTimeout(() => {
+            document.location.href = `./cart.html`
+        }, 2000)
     })
 
 } catch (error) {
