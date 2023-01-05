@@ -26,7 +26,6 @@ const inputValues = {
 
 try {
     let cart = getCart()
-
     const productPromises = cart.reduce((productIds, cartItem) => {
         if (!productIds.includes(cartItem.id)) {
             productIds.push(cartItem.id)

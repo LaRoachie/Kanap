@@ -5,7 +5,7 @@ try {
     const id = urlParams.get('id')
     const product = await fetchJson(`http://localhost:3000/api/products/${id}`)
 
-    // Recupération et affichage des couleurs dns un select
+    // Recupération et affichage des couleurs dans un select
     product.colors.forEach(color => {
         const option = document.createElement('option')
         option.value = color
